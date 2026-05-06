@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>School of AI and Emerging Technology</title>
+
+  <!-- Google Fonts: Syne (display) + DM Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* =============================================
+       CSS CUSTOM PROPERTIES (THEME)
+    ============================================= */
+    :root {
+      --navy:   #0f172a;
+      --green:  #22c55e;
+      --green2: #16a34a;
+      --slate:  #f1f5f9;
+      --card:   #ffffff;
+      --text:   #1e293b;
+      --muted:  #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 4px 24px rgba(15,23,42,.10);
+      --radius: 14px;
+      --transition: .3s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--slate);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    img { max-width: 100%; display: block; }
+    a  { text-decoration: none; color: inherit; }
+
+    /* =============================================
+       UTILITY
+    ============================================= */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+    .section-label {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 600px;
+    }
+
+    section { padding: 90px 0; }
+
+    /* =============================================
+       HEADER / NAV
+    ============================================= */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    /* School logo / name */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: var(--green);
+      border-radius: 8px;
+      display: grid; place-items: center;
+      font-size: 1.1rem;
+    }
+
+    .logo-text {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .logo-text span { color: var(--green); }
+
+    /* Desktop nav links */
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      color: #cbd5e1;
+      font-size: .9rem;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #fff;
+      background: rgba(255,255,255,.08);
+    }
+
+    /* CTA button */
+    .btn-nav {
+      background: var(--green);
+      color: #fff !important;
+      font-weight: 600 !important;
+      padding: 8px 20px !important;
+      border-radius: 8px !important;
+    }
+
+    .btn-nav:hover { background: var(--green2) !important; }
+
+    /* Hamburger (mobile) */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* Mobile nav open state */
+    .mobile-nav {
+      display: none;
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding: 12px 24px 20px;
+    }
+
+    .mobile-nav.open { display: block; }
+
+    .mobile-nav ul { list-style: none; }
+
+    .mobile-nav ul li { border-bottom: 1px solid rgba(255,255,255,.07); }
+
+    .mobile-nav ul a {
+      display: block;
+      padding: 12px 0;
+      color: #cbd5e1;
+      font-size: .95rem;
+      transition: color var(--transition);
+    }
+
+    .mobile-nav ul a:hover { color: var(--green); }
+
+    /* =============================================
+       HERO / BANNER
+    ============================================= */
+    #home {
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Background image via Unsplash (AI/tech theme) */
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(135deg, rgba(15,23,42,.88) 45%, rgba(15,23,42,.55) 100%),
+        url('https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1600&q=80') center/cover no-repeat;
+    }
+
+    /* Animated grid overlay for futuristic feel */
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(34,197,94,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34,197,94,.07) 1px, transparent 1px);
+      background-size: 48px 48px;
+      animation: gridShift 18s linear infinite;
+    }
+
+    @keyframes gridShift { from { background-position: 0 0; } to { background-position: 48px 48px; } }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34,197,94,.15);
+      border: 1px solid rgba(34,197,94,.35);
+      color: var(--green);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      animation: fadeUp .6s both;
+    }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      animation: fadeUp .7s .1s both;
+    }
+
+    .hero-title .accent { color: var(--green); }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: #94a3b8;
+      margin-bottom: 36px;
+      max-width: 560px;
+      animation: fadeUp .7s .2s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      animation: fadeUp .7s .3s both;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: #fff;
+      font-weight: 600;
+      padding: 13px 28px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: .95rem;
+      font-family: 'DM Sans', sans-serif;
+      transition: var(--transition);
+    }
+
+    .btn-primary:hover { background: var(--green2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,197,94,.35); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: #fff;
+      font-weight: 600;
+      padding: 13px 28px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(255,255,255,.3);
+      cursor: pointer;
+      font-size: .95rem;
+      font-family: 'DM Sans', sans-serif;
+      transition: var(--transition);
+    }
+
+    .btn-outline:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
+
+    /* Hero stats row */
+    .hero-stats {
+      display: flex;
+      gap: 36px;
+      margin-top: 52px;
+      flex-wrap: wrap;
+      animation: fadeUp .7s .4s both;
+    }
+
+    .stat { color: #fff; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--green);
+    }
+    .stat-label { font-size: .82rem; color: #94a3b8; letter-spacing: .04em; text-transform: uppercase; }
+
+    /* Floating card decoration */
+    .hero-deco {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .deco-card {
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px;
+      padding: 14px 20px;
+      color: #fff;
+      font-size: .85rem;
+      min-width: 180px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .deco-card:nth-child(2) { animation-delay: 1.5s; }
+    .deco-card:nth-child(3) { animation-delay: 3s; }
+
+    .deco-icon { font-size: 1.4rem; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =============================================
+       WELCOME INTERACTIVE STRIP
+    ============================================= */
+    .welcome-strip {
+      background: var(--navy);
+      padding: 28px 0;
+      text-align: center;
+    }
+
+    #welcomeBtn {
+      background: none;
+      border: 1.5px solid rgba(255,255,255,.2);
+      color: #94a3b8;
+      font-size: .95rem;
+      font-family: 'DM Sans', sans-serif;
+      padding: 10px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    #welcomeBtn:hover { border-color: var(--green); color: var(--green); }
+
+    #welcomeMsg {
+      display: none;
+      margin-top: 14px;
+      color: var(--green);
+      font-size: 1.1rem;
+      font-weight: 600;
+      animation: fadeUp .4s both;
+    }
+
+    /* =============================================
+       ABOUT SECTION
+    ============================================= */
+    #about { background: var(--card); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-image {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+
+    /* Green accent bar on image */
+    .about-image::before {
+      content: '';
+      position: absolute;
+      left: -16px; top: 24px;
+      width: 6px; height: 80px;
+      background: var(--green);
+      border-radius: 4px;
+    }
+
+    .about-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .feature-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--slate);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--navy);
+      transition: var(--transition);
+    }
+
+    .feature-pill:hover { background: rgba(34,197,94,.1); }
+    .feature-pill .fp-icon { font-size: 1.1rem; }
+
+    /* =============================================
+       COURSES SECTION
+    ============================================= */
+    #courses { background: var(--slate); }
+
+    .courses-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    /* Course card */
+    .course-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Green bottom bar on hover */
+    .course-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--green);
+      transform: scaleX(0);
+      transition: transform var(--transition);
+    }
+
+    .course-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(15,23,42,.14); }
+    .course-card:hover::after { transform: scaleX(1); }
+
+    .course-icon {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      display: inline-block;
+      background: rgba(34,197,94,.1);
+      padding: 10px 14px;
+      border-radius: 12px;
+    }
+
+    .course-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .course-desc {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .course-badge {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--green2);
+      background: rgba(34,197,94,.1);
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    /* =============================================
+       CONTACT SECTION
+    ============================================= */
+    #contact { background: var(--navy); }
+
+    #contact .section-title { color: #fff; }
+    #contact .section-sub  { color: #94a3b8; }
+    #contact .section-label { color: var(--green); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 52px;
+      align-items: start;
+    }
+
+    /* Info side */
+    .contact-info h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.25rem;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+
+    .info-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      align-items: flex-start;
+    }
+
+    .info-icon {
+      width: 42px; height: 42px;
+      background: rgba(34,197,94,.12);
+      border: 1px solid rgba(34,197,94,.25);
+      border-radius: 10px;
+      display: grid; place-items: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .info-label {
+      font-size: .78rem;
+      color: var(--green);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 3px;
+    }
+
+    .info-value {
+      font-size: .95rem;
+      color: #cbd5e1;
+    }
+
+    /* Form */
+    .contact-form {
+      background: #fff;
+      border-radius: 18px;
+      padding: 36px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+      letter-spacing: .03em;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 11px 15px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .92rem;
+      color: var(--text);
+      background: #f8fafc;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(34,197,94,.15);
+      background: #fff;
+    }
+
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    /* Field error */
+    .field-error {
+      font-size: .78rem;
+      color: #ef4444;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .form-group.has-error input,
+    .form-group.has-error textarea,
+    .form-group.has-error select {
+      border-color: #ef4444;
+    }
+
+    .form-group.has-error .field-error { display: block; }
+
+    /* Success message */
+    #formSuccess {
+      display: none;
+      background: rgba(34,197,94,.1);
+      border: 1px solid rgba(34,197,94,.35);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #formSuccess .success-icon { font-size: 2rem; margin-bottom: 8px; }
+    #formSuccess h4 { color: var(--green2); font-size: 1rem; margin-bottom: 4px; }
+    #formSuccess p  { color: var(--muted); font-size: .88rem; }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .97rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      letter-spacing: .02em;
+    }
+
+    .btn-submit:hover { background: var(--green); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(34,197,94,.3); }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    footer {
+      background: #050d1a;
+      padding: 30px 0;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,.05);
+    }
+
+    footer p { color: #475569; font-size: .85rem; }
+    footer span { color: var(--green); }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 900px) {
+      .hero-deco  { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 36px; }
+      .about-image::before { display: none; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .form-row   { grid-template-columns: 1fr; }
+      .hero-stats { gap: 22px; }
+      .about-features { grid-template-columns: 1fr; }
+      .courses-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER & NAVIGATION
+  ============================================================ -->
+  <header>
+    <div class="container">
+      <nav class="nav-inner">
+
+        <!-- Logo -->
+        <a href="#home" class="logo">
+          <div class="logo-icon">🤖</div>
+          <div class="logo-text">School of <span>AI</span> &amp; ET</div>
+        </a>
+
+        <!-- Desktop nav -->
+        <ul class="nav-links">
+          <li><a href="#home"    class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#courses">Courses</a></li>
+          <li><a href="#contact" class="btn-nav">Contact Us</a></li>
+        </ul>
+
+        <!-- Hamburger button (mobile) -->
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+
+      </nav>
+    </div>
+
+    <!-- Mobile dropdown nav -->
+    <div class="mobile-nav" id="mobileNav">
+      <ul>
+        <li><a href="#home"    onclick="closeMobileNav()">Home</a></li>
+        <li><a href="#about"   onclick="closeMobileNav()">About</a></li>
+        <li><a href="#courses" onclick="closeMobileNav()">Courses</a></li>
+        <li><a href="#contact" onclick="closeMobileNav()">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       HERO / HOME SECTION
+  ============================================================ -->
+  <section id="home">
+    <!-- Background + grid overlay -->
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+
+    <div class="container" style="position:relative;z-index:2;width:100%;">
+      <div class="hero-content">
+
+        <div class="hero-badge">🚀 &nbsp;Welcome to the Future of Learning</div>
+
+        <h1 class="hero-title">
+          School of <span class="accent">AI</span> and<br/>
+          Emerging Technology
+        </h1>
+
+        <p class="hero-sub">
+          Empowering the next generation with cutting-edge skills in Artificial Intelligence,
+          Machine Learning, Data Science, and beyond.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#courses" class="btn-primary">🎓 &nbsp;Explore Courses</a>
+          <a href="#about"   class="btn-outline">Learn More →</a>
+        </div>
+
+        <!-- Quick stats -->
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-num">50+</div>
+            <div class="stat-label">Expert Faculty</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">8</div>
+            <div class="stat-label">Tech Programs</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">2K+</div>
+            <div class="stat-label">Alumni</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">95%</div>
+            <div class="stat-label">Placement Rate</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Floating decoration cards (hidden on mobile) -->
+    <div class="hero-deco">
+      <div class="deco-card"><span class="deco-icon">🤖</span><div><strong>AI Programs</strong><br/><small style="color:#94a3b8">Cutting-edge curriculum</small></div></div>
+      <div class="deco-card"><span class="deco-icon">📊</span><div><strong>Data Science</strong><br/><small style="color:#94a3b8">Real-world projects</small></div></div>
+      <div class="deco-card"><span class="deco-icon">🛡️</span><div><strong>Cyber Security</strong><br/><small style="color:#94a3b8">Ethical hacking labs</small></div></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       INTERACTIVE WELCOME STRIP
+  ============================================================ -->
+  <div class="welcome-strip">
+    <button id="welcomeBtn" onclick="showWelcome()">👋 Click for a Welcome Message</button>
+    <div id="welcomeMsg">🎉 Welcome to School of AI and Emerging Technology — where your future begins!</div>
+  </div>
+
+  <!-- ============================================================
+       ABOUT SECTION
+  ============================================================ -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Image side -->
+        <div class="about-image">
+          <img
+            src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80"
+            alt="Students collaborating in a tech lab"
+          />
+        </div>
+
+        <!-- Text side -->
+        <div class="about-text">
+          <span class="section-label">Who We Are</span>
+          <h2 class="section-title">Pioneering Education in Emerging Technologies</h2>
+          <p style="color:var(--muted);margin-bottom:18px;line-height:1.75;">
+            Founded on the belief that technology shapes tomorrow, the <strong>School of AI and
+            Emerging Technology</strong> delivers world-class programs in AI, Machine Learning,
+            Data Science, Cybersecurity, and more.
+          </p>
+          <p style="color:var(--muted);line-height:1.75;">
+            Our state-of-the-art labs, industry-connected faculty, and project-based learning
+            model ensure every graduate is workforce-ready. We don't just teach technology —
+            we help students <em>build</em> it.
+          </p>
+
+          <!-- Feature pills -->
+          <div class="about-features">
+            <div class="feature-pill"><span class="fp-icon">🏫</span> Modern Labs</div>
+            <div class="feature-pill"><span class="fp-icon">🌐</span> Global Network</div>
+            <div class="feature-pill"><span class="fp-icon">👨‍🏫</span> Expert Faculty</div>
+            <div class="feature-pill"><span class="fp-icon">💼</span> Career Support</div>
+            <div class="feature-pill"><span class="fp-icon">🔬</span> Research Focus</div>
+            <div class="feature-pill"><span class="fp-icon">🏆</span> Award-Winning</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       COURSES SECTION
+  ============================================================ -->
+  <section id="courses">
+    <div class="container">
+      <div class="courses-header">
+        <div>
+          <span class="section-label">What We Offer</span>
+          <h2 class="section-title">Our Technology Programs</h2>
+          <p class="section-sub">
+            Hands-on, industry-aligned courses designed for the jobs of tomorrow.
+          </p>
+        </div>
+        <a href="#contact" class="btn-primary" style="white-space:nowrap;">Enroll Now →</a>
+      </div>
+
+      <!-- Courses grid — 8 cards -->
+      <div class="courses-grid">
+
+        <div class="course-card">
+          <div class="course-icon">🤖</div>
+          <div class="course-title">Artificial Intelligence</div>
+          <div class="course-desc">Explore intelligent systems, neural networks, and the foundations of machine reasoning and autonomous decision-making.</div>
+          <div class="course-badge">Core Program</div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-icon">🧠</div>
+          <div class="course-title">Machine Learning</div>
+          <div class="course-desc">Master supervised, unsupervised, and reinforcement learning to build predictive models from real-world datasets.</div>
+          <div class="course-badge">Core Program</div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-icon">📊</div>
+          <div class="course-title">Data Science</div>
+          <div class="course-desc">Turn raw data into actionable insights using statistical analysis, visualisation tools, and storytelling techniques.</div>
+          <div class="course-badge">Popular</div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-icon">💻</div>
+          <div class="course-title">Web Development</div>
+          <div class="course-desc">Build modern full-stack web applications with React, Node.js, and cloud deployments from scratch.</div>
+          <div class="course-badge">Beginner Friendly</div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-icon">🛡️</div>
+          <div class="course-title">Cyber Security</div>
+          <div class="course-desc">Defend digital infrastructure through ethical hacking, penetration testing, and advanced threat analysis.</div>
+          <div class="course-badge">High Demand</div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-icon">🤖</div>
+          <div class="course-title">Robotics</div>
+          <div class="course-desc">Design, program, and deploy autonomous robots using sensors, actuators, and real-time control systems.</div>
+          <div class="course-badge">Lab Intensive</div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-icon">☁️</div>
+          <div class="course-title">Cloud Computing</div>
+          <div class="course-desc">Architect scalable solutions on AWS, Azure, and Google Cloud with a focus on DevOps and containerisation.</div>
+          <div class="course-badge">Industry Cert</div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-icon">🔗</div>
+          <div class="course-title">Blockchain Technology</div>
+          <div class="course-desc">Understand distributed ledgers, smart contracts, DeFi protocols, and build decentralised applications.</div>
+          <div class="course-badge">Emerging Field</div>
+        </div>
+
+      </div><!-- /courses-grid -->
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT SECTION
+  ============================================================ -->
+  <section id="contact">
+    <div class="container">
+
+      <span class="section-label">Get In Touch</span>
+      <h2 class="section-title">Contact Us</h2>
+      <p class="section-sub" style="margin-bottom:52px;">
+        Have questions about admissions or programs? We'd love to hear from you.
+      </p>
+
+      <div class="contact-grid">
+
+        <!-- Contact info -->
+        <div class="contact-info">
+          <h3>School Information</h3>
+
+          <div class="info-item">
+            <div class="info-icon">📍</div>
+            <div>
+              <div class="info-label">Address</div>
+              <div class="info-value">42 Innovation Drive, Tech Park,<br/>Silicon Valley, CA 94025, USA</div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">✉️</div>
+            <div>
+              <div class="info-label">Email</div>
+              <div class="info-value">admissions@schoolofai.edu</div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">📞</div>
+            <div>
+              <div class="info-label">Phone</div>
+              <div class="info-value">+1 (800) 555 - AI42</div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">🕐</div>
+            <div>
+              <div class="info-label">Office Hours</div>
+              <div class="info-value">Mon – Fri: 9 AM – 6 PM PST</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact form -->
+        <div class="contact-form">
+
+          <!-- Success message (shown after valid submit) -->
+          <div id="formSuccess">
+            <div class="success-icon">✅</div>
+            <h4>Message Sent Successfully!</h4>
+            <p>Thank you for reaching out. Our team will get back to you within 24 hours.</p>
+          </div>
+
+          <!-- Name + Email row -->
+          <div class="form-row">
+            <div class="form-group" id="grp-name">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" placeholder="Jane Doe"/>
+              <div class="field-error">Please enter your full name.</div>
+            </div>
+            <div class="form-group" id="grp-email">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" placeholder="jane@example.com"/>
+              <div class="field-error">Please enter a valid email address.</div>
+            </div>
+          </div>
+
+          <!-- Phone + Subject row -->
+          <div class="form-row">
+            <div class="form-group" id="grp-phone">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" placeholder="+1 234 567 8900"/>
+              <div class="field-error">Please enter your phone number.</div>
+            </div>
+            <div class="form-group" id="grp-subject">
+              <label for="subject">Subject *</label>
+              <select id="subject">
+                <option value="">— Select a subject —</option>
+                <option>Admission Enquiry</option>
+                <option>Course Information</option>
+                <option>Scholarship</option>
+                <option>Career &amp; Placements</option>
+                <option>Technical Support</option>
+                <option>Other</option>
+              </select>
+              <div class="field-error">Please select a subject.</div>
+            </div>
+          </div>
+
+          <!-- Message -->
+          <div class="form-group" id="grp-message">
+            <label for="message">Your Message *</label>
+            <textarea id="message" placeholder="Write your message here…"></textarea>
+            <div class="field-error">Please enter your message.</div>
+          </div>
+
+          <!-- Submit -->
+          <button class="btn-submit" onclick="submitForm()">Send Message 🚀</button>
+
+        </div><!-- /contact-form -->
+      </div><!-- /contact-grid -->
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <div class="container">
+      <p>© 2025 <span>School of AI and Emerging Technology</span>. All rights reserved. Built for the future.</p>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    // -------------------------------------------------------
+    // 1. HAMBURGER MENU TOGGLE
+    // -------------------------------------------------------
+    const hamburger  = document.getElementById('hamburger');
+    const mobileNav  = document.getElementById('mobileNav');
+
+    hamburger.addEventListener('click', () => {
+      mobileNav.classList.toggle('open');
+    });
+
+    // Close mobile nav helper (called from inline onclick)
+    function closeMobileNav() {
+      mobileNav.classList.remove('open');
+    }
+
+    // -------------------------------------------------------
+    // 2. SMOOTH ACTIVE NAV LINK ON SCROLL
+    // -------------------------------------------------------
+    const sections   = document.querySelectorAll('section[id]');
+    const navLinks   = document.querySelectorAll('.nav-links a');
+
+    function onScroll() {
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 100) current = sec.getAttribute('id');
+      });
+      navLinks.forEach(a => {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+      });
+    }
+
+    window.addEventListener('scroll', onScroll);
+
+    // -------------------------------------------------------
+    // 3. WELCOME INTERACTIVE BUTTON
+    // -------------------------------------------------------
+    function showWelcome() {
+      const msg = document.getElementById('welcomeMsg');
+      const btn = document.getElementById('welcomeBtn');
+      msg.style.display = 'block';
+      btn.textContent   = '✅ Welcome Shown!';
+      btn.disabled      = true;
+    }
+
+    // -------------------------------------------------------
+    // 4. CONTACT FORM VALIDATION & SUBMISSION
+    // -------------------------------------------------------
+    function validateField(id, groupId, checkFn) {
+      /* Marks a field group as error / valid. Returns boolean. */
+      const grp  = document.getElementById(groupId);
+      const pass = checkFn(document.getElementById(id).value.trim());
+      grp.classList.toggle('has-error', !pass);
+      return pass;
+    }
+
+    function isEmail(val) {
+      /* Basic email regex check */
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    }
+
+    function isPhone(val) {
+      /* Allow digits, spaces, +, dashes, parens — min 7 chars */
+      return /^[\d\s\+\-\(\)]{7,}$/.test(val);
+    }
+
+    function submitForm() {
+      /* Run all validations */
+      const v1 = validateField('name',    'grp-name',    v => v.length >= 2);
+      const v2 = validateField('email',   'grp-email',   v => isEmail(v));
+      const v3 = validateField('phone',   'grp-phone',   v => isPhone(v));
+      const v4 = validateField('subject', 'grp-subject', v => v !== '');
+      const v5 = validateField('message', 'grp-message', v => v.length >= 10);
+
+      if (!(v1 && v2 && v3 && v4 && v5)) return; // Stop if any field invalid
+
+      /* All valid — show success UI and clear the form */
+      document.getElementById('formSuccess').style.display = 'block';
+      ['name','email','phone','message'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('subject').selectedIndex = 0;
+
+      /* Scroll success message into view */
+      document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // -------------------------------------------------------
+    // 5. REAL-TIME INLINE VALIDATION (on input blur)
+    // -------------------------------------------------------
+    document.getElementById('name')   .addEventListener('blur', () => validateField('name',    'grp-name',    v => v.length >= 2));
+    document.getElementById('email')  .addEventListener('blur', () => validateField('email',   'grp-email',   v => isEmail(v)));
+    document.getElementById('phone')  .addEventListener('blur', () => validateField('phone',   'grp-phone',   v => isPhone(v)));
+    document.getElementById('subject').addEventListener('change', () => validateField('subject','grp-subject', v => v !== ''));
+    document.getElementById('message').addEventListener('blur', () => validateField('message', 'grp-message', v => v.length >= 10));
+  </script>
+
+</body>
+</html>
